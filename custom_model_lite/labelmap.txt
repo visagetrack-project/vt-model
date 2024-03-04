@@ -1,0 +1,8 @@
+blob_normal
+blob_atento
+blob_surpreso
+blob_dormindo
+blob_feliz
+blob_triste
+blob_raiva
+blob_entediado

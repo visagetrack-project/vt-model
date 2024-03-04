@@ -1,0 +1,40 @@
+item {
+  id: 1
+  name: 'blob_normal'
+}
+
+item {
+  id: 2
+  name: 'blob_atento'
+}
+
+item {
+  id: 3
+  name: 'blob_surpreso'
+}
+
+item {
+  id: 4
+  name: 'blob_dormindo'
+}
+
+item {
+  id: 5
+  name: 'blob_feliz'
+}
+
+item {
+  id: 6
+  name: 'blob_triste'
+}
+
+item {
+  id: 7
+  name: 'blob_raiva'
+}
+
+item {
+  id: 8
+  name: 'blob_entediado'
+}
+
