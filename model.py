@@ -94,11 +94,11 @@ def tflite_detect_image(modelpath, imgpath, lblpath, min_conf=0.5, txt_only=Fals
     classes = interpreter.get_tensor(output_details[3]['index'])[0]  # Class index of detected objects
     scores = interpreter.get_tensor(output_details[0]['index'])[0]  # Confidence of detected objects
 
-    print(boxes)
-    for score in scores:
-        print(f'{score:.16f}%')
-    print(classes)
-    print(labels)
+    #print(boxes)
+    #for score in scores:
+    #    print(f'{score:.16f}%')
+    #print(classes)
+    #print(labels)
 
     # Loop over all detections and draw detection box if confidence is above minimum threshold
     for i in range(len(scores)):

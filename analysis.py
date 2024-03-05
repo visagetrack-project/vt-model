@@ -2,17 +2,6 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
-# Lista inicial de conjuntos de estados
-estados_conjunto = [
-    [1, 1, 2, 2, 4, 1, 0, 0, 0, 1],
-    [2, 3, 4, 0, 1, 1, 2, 2, 3, 3],
-    [4, 4, 1, 1, 0, 0, 2, 3, 4, 4],
-    [3, 2, 1, 0, 4, 4, 3, 3, 2, 2],
-    [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
-    [3, 3, 3, 4, 4, 4, 5, 5, 5, 6],
-    [6, 7, 7, 6, 5, 5, 4, 3, 2, 1]
-]
-
 # Calcula o valor de engajamento com base nos estados
 def createAnalysisValue(estados, blobQuantity=10):
     total_max_value = 50
@@ -63,9 +52,15 @@ def criarRegressao(momentos, valores_engajamento):
     plt.xticks(momentos)
     plt.show()
 # Função para adicionar novo conjunto de estados e realizar a análise
-def createStatesAnalysis(new_states):
-    estados_conjunto.append(new_states)
+def createStatesAnalysis(estados_conjunto):
     valores_engajamento = [createAnalysisValue(estados) for estados in estados_conjunto]
     momentos = list(range(1, len(valores_engajamento) + 1))
     criarRegressao(momentos, valores_engajamento)
+
+def getState(detection_result):
+    estados = []  # Inicializa a lista para armazenar os valores de estado_numero
+    for item in detection_result:  # Itera sobre cada item em detection_result
+        estado_numero = item['estado_numero']  # Extrai o valor de estado_numero
+        estados.append(estado_numero)  # Adiciona o valor à lista estados
+    return estados
 
