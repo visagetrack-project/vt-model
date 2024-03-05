@@ -20,25 +20,6 @@ def showImage(img):
     plt.axis('off')  # Remove os eixos para uma visualização mais limpa
     plt.show()
 
-#print(createAnalysisValue(estados))
-#print(estados)
-#showImage(img)
-#img,detection_result = runModel("images/Screenshot_8.png")
-#print(detection_result)
-#estados = getState(detection_result)
-#normal = 0
-#atento = 1
-#surpreso = 2
-#dormindo = 3
-#feliz = 4
-#triste = 5
-#raiva = 6
-#entediado = 7
-#detection_result tem estrutura: [{'estado': 'blob_atento', 'estado_numero': 1, 'prob': '0.9999999403953552'}]
-
-# Considerando que runModel e getState estejam definidos corretamente
-# from model import runModel
-# from analysis import getState
 def processImages(folder_path, max_images=50):
     estados_accum = []  # Lista para acumular estados de todas as imagens
 

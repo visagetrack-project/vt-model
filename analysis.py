@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
@@ -38,11 +40,37 @@ def realizar_regressao_linear(X, y):
     return modelo
 
 # Mostra a regressão e os dados originais
-def criarRegressao(momentos, valores_engajamento):
+
+def criarRegressao(momentos, valores_engajamento, save_dir=r"C:\Users\jader\Desktop\estudos\visage-track\vt-api\packages\graph"):
     modelo_regressao = realizar_regressao_linear(momentos, valores_engajamento)
     valores_previstos = modelo_regressao.predict(np.array(momentos).reshape(-1, 1))
+
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+
+    total_plots = len(momentos)
+    for i in range(1, total_plots + 1):
+        if i % 10 == 0 or i == total_plots:  # Salva a cada 10 plotagens ou na última
+            plt.figure(figsize=(10, 6))
+            plt.scatter(momentos[:i], valores_engajamento[:i], color='blue', label='Dados Originais')  # Pontos de dados originais até o momento i
+            plt.plot(momentos[:i], valores_engajamento[:i], 'k-', label='Linha Conectando Pontos')  # Linha preta conectando os pontos
+            plt.plot(momentos[:i], valores_previstos[:i], color='red', label='Linha de Regressão')  # Linha de regressão até o momento i
+            plt.title('Engajamento ao Longo do Tempo com Regressão Linear')
+            plt.xlabel('Momento')
+            plt.ylabel('Engajamento')
+            plt.legend()
+            plt.grid(True)
+            plt.xticks(momentos[:i])
+
+            # Salva a figura atual
+            figure_path = os.path.join(save_dir, f"regressao_{i}.png")
+            plt.savefig(figure_path)
+            plt.close()  # Fecha a figura atual para que um novo plot possa ser iniciado
+
+    # Exibe a última figura após salvar todas as imagens intermediárias
     plt.figure(figsize=(10, 6))
     plt.scatter(momentos, valores_engajamento, color='blue', label='Dados Originais')
+    plt.plot(momentos, valores_engajamento, 'k-', label='Linha Conectando Pontos')  # Linha preta conectando os pontos em todos os dados
     plt.plot(momentos, valores_previstos, color='red', label='Linha de Regressão')
     plt.title('Engajamento ao Longo do Tempo com Regressão Linear')
     plt.xlabel('Momento')

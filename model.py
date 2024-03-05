@@ -122,8 +122,11 @@ def tflite_detect_image(modelpath, imgpath, lblpath, min_conf=0.5, txt_only=Fals
             cv2.putText(image, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
         # Lista para armazenar os resultados das detecções
     detection_results = []
+
     csv_filename = "detection_results.csv"
-    with open(csv_filename, mode='a', newline='') as file:
+    csv_path = r"C:\Users\jader\Desktop\estudos\visage-track\vt-api\packages\csv"
+    csv_full_path = os.path.join(csv_path, csv_filename)  # Usa os.path.join para garantir o correto caminho do arquivo
+    with open(csv_full_path, mode='a', newline='') as file:
         writer = csv.writer(file)
         # Escreve o cabeçalho do CSV
         writer.writerow(['estado', 'estado_numero', 'prob'])
