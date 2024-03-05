@@ -98,6 +98,7 @@ def tflite_detect_image(modelpath, imgpath, lblpath, min_conf=0.5, txt_only=Fals
     for score in scores:
         print(f'{score:.16f}%')
     print(classes)
+    print(labels)
 
     # Loop over all detections and draw detection box if confidence is above minimum threshold
     for i in range(len(scores)):
@@ -122,7 +123,7 @@ def tflite_detect_image(modelpath, imgpath, lblpath, min_conf=0.5, txt_only=Fals
         # Lista para armazenar os resultados das detecções
     detection_results = []
     csv_filename = "detection_results.csv"
-    with open(csv_filename, mode='w', newline='') as file:
+    with open(csv_filename, mode='a', newline='') as file:
         writer = csv.writer(file)
         # Escreve o cabeçalho do CSV
         writer.writerow(['estado', 'estado_numero', 'prob'])
