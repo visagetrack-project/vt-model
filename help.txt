@@ -1,0 +1,97 @@
+fazer uma api que pega 10 nomes aqui
+getNamesFromUnity():
+
+pegou esses 10 nomes né, beleza agora manda como requisição para essa api em go ((((package main
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+)
+
+type UserData struct {
+	Name       string `json:"name"`
+	Faltas     int    `json:"faltas"`
+	Humor      string `json:"humor"`
+	GraphImage string `json:"graphImage"`
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*") // ATENÇÃO: usar '*' em produção pode ser inseguro
+	(*w).Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+}
+
+func fetchUserDataHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("Recebido uma requisição em /fetchUserData")
+
+	// Habilita CORS para esta resposta específica
+	enableCors(&w)
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	usersData := []UserData{
+		{"Usuario 1", 2, "Bom", "packages/graph/regressao_20.png"},
+		{"Usuario 2", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 3", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 4", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 5", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 6", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 7", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 8", 0, "Ótimo", "packages/graph/regressao_20.png"},
+		{"Usuario 9", 0, "Ótimo", "packages/graph/regressao_20.png"},
+
+		// Adicione mais usuários conforme necessário
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(usersData); err != nil {
+		log.Printf("Erro ao codificar a resposta JSON: %v", err)
+		http.Error(w, "Erro interno do servidor", http.StatusInternalServerError)
+		return
+	}
+}
+
+func corsFileServer(h http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		enableCors(&w)
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		h.ServeHTTP(w, r)
+	}
+}
+
+func main() {
+	http.HandleFunc("/fetchUserData", fetchUserDataHandler)
+
+	fs := http.FileServer(http.Dir("packages/graph"))
+	http.Handle("/packages/graph/", corsFileServer(http.StripPrefix("/packages/graph/", fs)))
+
+	port := ":8080"
+	log.Printf("Servidor iniciando na porta %s\n", port)
+	if err := http.ListenAndServe(port, nil); err != nil {
+		log.Fatalf("Erro ao iniciar o servidor: %v", err)
+	}
+}
+)))) modifique a api em go para receber todos esses nomes (ela só vai receber os nomes 1 unica vez)
+
+agora precisamos fazer um pré processamento antes de enviar o resultado
+use getStatesListsCustomFromUnity() para receber de uma volta uma lista de 500 estados que está na mesma ordem dos nomes
+[1, 2, 0, 3, 6, 0, 3, 4, 1, 7] no caso nome 1 = estado 1, para cada um, precisamos antes de enviar verificar os estados
+if estado == 0:  # normal
+elif estado == 1:  # atento
+elif estado == 2:  # surpreso
+elif estado == 3:  # dormindo
+elif estado == 4:  # feliz
+elif estado == 5:  # triste
+elif estado == 6:  # raiva
+elif estado == 7:  # entediado
+else: #faltou!
+    total_value -= (5 / blobQuantity)
+
+    vai ser algo semelhante a isso agora faça

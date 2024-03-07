@@ -51,3 +51,4 @@ def processImages(folder_path, max_images=50):
 images_folder_path = 'images'
 # Executa o processamento das imagens
 processImages(images_folder_path)
+#[1, 1, 0, 0, 1, 0, 6, 6, 1, 1]
