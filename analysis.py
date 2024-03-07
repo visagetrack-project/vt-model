@@ -1,4 +1,6 @@
+import glob
 import os
+import time
 
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -7,7 +9,7 @@ import matplotlib.pyplot as plt
 # Calcula o valor de engajamento com base nos estados
 def createAnalysisValue(estados, blobQuantity=10):
     total_max_value = 50
-    total_min_value = 0
+    total_min_value = -50
     total_value = 0
     for estado in estados:
         if estado == 0:  # normal
@@ -42,6 +44,9 @@ def realizar_regressao_linear(X, y):
 # Mostra a regressão e os dados originais
 
 def criarRegressao(momentos, valores_engajamento, save_dir=r"C:\Users\jader\Desktop\estudos\visage-track\vt-api\packages\graph"):
+    files = glob.glob(os.path.join(save_dir, '*.png'))
+    for f in files:
+        os.remove(f)
     modelo_regressao = realizar_regressao_linear(momentos, valores_engajamento)
     valores_previstos = modelo_regressao.predict(np.array(momentos).reshape(-1, 1))
 
@@ -78,7 +83,8 @@ def criarRegressao(momentos, valores_engajamento, save_dir=r"C:\Users\jader\Desk
     plt.legend()
     plt.grid(True)
     plt.xticks(momentos)
-    plt.show()
+    print("Abra A API EM GO!")
+    time.sleep(10)
 # Função para adicionar novo conjunto de estados e realizar a análise
 def createStatesAnalysis(estados_conjunto):
     valores_engajamento = [createAnalysisValue(estados) for estados in estados_conjunto]
